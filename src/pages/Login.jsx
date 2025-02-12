@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Container,
-  TextField,
-  Button,
-  Typography,
-  Box,
-  Paper,
-  Link,
-} from "@mui/material";
+import { TextField, Button, Typography, Box, Paper, Link } from "@mui/material";
 import useLogin from "../hooks/useLogin";
 
 const Login = () => {
@@ -17,10 +9,7 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
     loginUser(username, password);
-    // Add your login logic here
   };
   return (
     <Box
@@ -34,7 +23,7 @@ const Login = () => {
         backgroundColor: "#f5f5f5",
       }}
     >
-      <Paper elevation={3} sx={{ p: 4 }}>
+      <Paper elevation={3} sx={{ p: 4, width: "30vw" }}>
         <Typography variant="h4" component="h1" align="center" gutterBottom>
           Login
         </Typography>

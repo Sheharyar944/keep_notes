@@ -1,9 +1,7 @@
 import React from "react";
-import Typography from "@mui/material/Typography";
-import { Box, Button, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { useNavigate, useLocation } from "react-router";
-import TextField from "@mui/material/TextField";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import NotepadPage from "../components/NotepadPage";
 import axios from "axios";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";

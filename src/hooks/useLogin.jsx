@@ -16,7 +16,7 @@ const useLogin = () => {
       localStorage.setItem("username", response.data.user.username);
       localStorage.setItem("id", response.data.user.id);
       localStorage.setItem("email", response.data.user.email);
-      getUser(response.data);
+      getUser(response.data.access, response.data.refresh);
       getDetails(
         response.data.user.username,
         response.data.user.email,

@@ -61,11 +61,11 @@ const NotesList = ({ notes }) => {
           <IconButton
             sx={{
               marginRight: "8px",
-              backgroundColor: "primary.main", // Change to any color you want
-              color: "white", // Icon color
-              width: 56, // Increase button size
-              height: 56, // Keep it a perfect circle
-              borderRadius: "50%", // Makes it circular
+              backgroundColor: "primary.main",
+              color: "white",
+              width: 56,
+              height: 56,
+              borderRadius: "50%",
               "&:hover": {
                 backgroundColor: "primary.dark",
               },

@@ -1,5 +1,6 @@
 import React, { useState, createContext, useEffect } from "react";
 import axios from "axios";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -27,6 +28,8 @@ export const AuthProvider = ({ children }) => {
       refresh,
     });
   };
+
+  console.log("user", user);
 
   const logout = () => {
     setUser(null);

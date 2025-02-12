@@ -26,7 +26,10 @@ function App() {
           // element={<Login />}
           element={user ? <Navigate to="/" replace /> : <Login />}
         />
-        <Route path="signup" element={<SignUp />} />
+        <Route
+          path="signup"
+          element={user ? <Navigate to="/" replace /> : <SignUp />}
+        />
       </Routes>
     </BrowserRouter>
   );
