@@ -1,18 +1,29 @@
 import React, { useState, useContext } from "react";
-import { TextField, Button, Typography, Box, Paper, Link } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Paper,
+  Link,
+  CircularProgress,
+} from "@mui/material";
 import { AuthContext } from "../components/AuthContext";
 import axios from "axios";
 
 const SignUp = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { getDetails, getUser } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const registerUser = async () => {
+    setLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/register/", {
+      const response = await axios.post(`${API_URL}/register/`, {
         username: username,
         email: email,
         password: password,
@@ -35,6 +46,7 @@ const SignUp = () => {
 
       console.log("failed to register user", error);
     }
+    setLoading(false);
   };
 
   const handleSignUp = (e) => {
@@ -103,7 +115,11 @@ const SignUp = () => {
             fullWidth
             sx={{ mt: 2 }}
           >
-            Sign Up
+            {loading ? (
+              <CircularProgress size={24} sx={{ color: "white" }} />
+            ) : (
+              "Sign Up"
+            )}
           </Button>
         </Box>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>

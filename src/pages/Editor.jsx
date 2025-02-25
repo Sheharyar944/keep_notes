@@ -9,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Tooltip from "@mui/material/Tooltip";
 
 const Editor = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const location = useLocation();
   const noteId = location.state?.note?.id;
   const noteTitle = location.state?.note?.title;
@@ -21,7 +22,7 @@ const Editor = () => {
     const token = localStorage.getItem("access_token");
 
     const response = await axios.patch(
-      `http://127.0.0.1:8000/notes/${noteId}/`,
+      `${API_URL}/notes/${noteId}/`,
       {
         title: title,
         content: note,

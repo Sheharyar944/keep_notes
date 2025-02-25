@@ -8,6 +8,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Tooltip from "@mui/material/Tooltip";
 
 const AddNote = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   let navigate = useNavigate();
   const [note, setNote] = useState("");
   const [title, setTitle] = useState("");
@@ -23,7 +24,7 @@ const AddNote = () => {
     }
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/notes/`,
+        `${API_URL}/notes/`,
         {
           title: title,
           content: note,

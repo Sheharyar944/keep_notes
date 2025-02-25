@@ -1,12 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../components/AuthContext";
 
 const useLogin = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { getUser, getDetails } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const loginUser = async (username, password) => {
+    setLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/login/", {
+      const response = await axios.post(`${API_URL}/login/`, {
         username: username,
         password: password,
       });
@@ -24,11 +28,17 @@ const useLogin = () => {
       );
       return response;
     } catch (error) {
-      console.log("error", error);
+      if (error.response) {
+        setErrors(error.response.data);
+      } else {
+        setErrors({ general: "network error" });
+      }
+      console.log("unable to sign in", error);
     }
+    setLoading(false);
   };
 
-  return { loginUser };
+  return { loginUser, errors, loading };
 };
 
 export default useLogin;

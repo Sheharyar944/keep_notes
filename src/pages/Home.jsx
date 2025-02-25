@@ -6,6 +6,7 @@ import { AuthContext } from "../components/AuthContext";
 import { useContext } from "react";
 
 const Home = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { user } = useContext(AuthContext);
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(true);
@@ -13,7 +14,7 @@ const Home = () => {
   const fetchNotes = async () => {
     try {
       const token = localStorage.getItem("access_token");
-      const response = await axios.get("http://127.0.0.1:8000/notes/", {
+      const response = await axios.get(`${API_URL}/notes/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

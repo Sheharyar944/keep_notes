@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Box, Paper, Link } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Paper,
+  Link,
+  CircularProgress,
+} from "@mui/material";
 import useLogin from "../hooks/useLogin";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { loginUser } = useLogin();
+  const { loginUser, errors, loading } = useLogin();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -42,6 +50,8 @@ const Login = () => {
             fullWidth
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            error={!!errors.username || !!errors.detail}
+            helperText={errors.username?.[0] || ""}
           />
           <TextField
             label="Password"
@@ -50,6 +60,8 @@ const Login = () => {
             fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            error={!!errors.password || !!errors.detail}
+            helperText={errors.password?.[0] || errors.detail || ""}
           />
           <Button
             type="submit"
@@ -58,7 +70,11 @@ const Login = () => {
             fullWidth
             sx={{ mt: 2 }}
           >
-            Login
+            {loading ? (
+              <CircularProgress size={24} sx={{ color: "white" }} />
+            ) : (
+              "Login"
+            )}
           </Button>
         </Box>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
