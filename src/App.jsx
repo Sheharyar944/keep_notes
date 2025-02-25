@@ -1,10 +1,7 @@
 import { useContext, useState } from "react";
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-// import { BrowserRouter, Routes, Route, NavLink } from "react-router";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 import Home from "./pages/Home";
-import Root from "./components/root";
+import Root from "./components/Root";
 import Editor from "./pages/Editor";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
