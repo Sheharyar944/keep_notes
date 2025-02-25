@@ -4,6 +4,7 @@ import axios from "axios";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false);
   const access = localStorage.getItem("access_token");
   const refresh = localStorage.getItem("refresh_token");
@@ -44,12 +45,9 @@ export const AuthProvider = ({ children }) => {
   const updateToken = async () => {
     try {
       const token = localStorage.getItem("refresh_token");
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/token/refresh/",
-        {
-          refresh: token,
-        }
-      );
+      const response = await axios.post(`${API_URL}/api/token/refresh/`, {
+        refresh: token,
+      });
       console.log("token refresh successful", response);
       if (response.status === 200) {
         localStorage.setItem("access_token", response.data.access);
