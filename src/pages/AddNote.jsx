@@ -37,6 +37,7 @@ const AddNote = () => {
         }
       );
       console.log("Note saved successfully:", response.data);
+      navigate("/");
     } catch (error) {
       console.error(
         "Error saving note:",
@@ -52,7 +53,6 @@ const AddNote = () => {
           sx={{ marginLeft: "71vw" }}
           onClick={() => {
             saveNote();
-            navigate("/");
           }}
         >
           <ArrowBackIcon />

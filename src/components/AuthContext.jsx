@@ -30,8 +30,6 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  console.log("user", user);
-
   const logout = () => {
     setUser(null);
     setUserDetails(null);
@@ -43,6 +41,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateToken = async () => {
+    setLoading(true);
     try {
       const token = localStorage.getItem("refresh_token");
       const response = await axios.post(`${API_URL}/api/token/refresh/`, {
@@ -55,9 +54,14 @@ export const AuthProvider = ({ children }) => {
       } else {
         logout();
       }
-    } catch (err) {
-      console.log("error updation token", err);
+    } catch (error) {
+      console.log("error updation token", error);
+      if (error.response && error.response.status === 401) {
+        console.log("Refresh token expired, logging out...");
+        logout();
+      }
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -74,7 +78,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, userDetails, getUser, getDetails, logout }}
+      value={{ user, userDetails, loading, getUser, getDetails, logout }}
     >
       {children}
     </AuthContext.Provider>

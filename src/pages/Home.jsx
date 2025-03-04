@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import axios from "axios";
 import NotesList from "../components/NotesList";
 import { AuthContext } from "../components/AuthContext";
@@ -7,7 +7,7 @@ import { useContext } from "react";
 
 const Home = () => {
   const API_URL = import.meta.env.VITE_API_URL;
-  const { user } = useContext(AuthContext);
+  const { user, loading: tokenRefreshLoading } = useContext(AuthContext);
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -29,10 +29,10 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (user && !tokenRefreshLoading) {
       fetchNotes();
     }
-  }, []);
+  }, [user, tokenRefreshLoading]);
 
   if (user && loading) {
     return (

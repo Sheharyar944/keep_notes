@@ -20,34 +20,43 @@ const Editor = () => {
 
   const saveNote = async () => {
     const token = localStorage.getItem("access_token");
-
-    const response = await axios.patch(
-      `${API_URL}/notes/${noteId}/`,
-      {
-        title: title,
-        content: note,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await axios.patch(
+        `${API_URL}/notes/${noteId}/`,
+        {
+          title: title,
+          content: note,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("note updated successfully", response.data);
+      navigate("/");
+    } catch (error) {
+      console.log("error updating notes", error);
+    }
   };
 
   const deleteNote = async () => {
     const token = localStorage.getItem("access_token");
-    const response = await axios.delete(
-      `http://127.0.0.1:8000/notes/${noteId}/`,
+    try {
+      const response = await axios.delete(
+        `http://127.0.0.1:8000/notes/${noteId}/`,
 
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response) {
+        navigate("/");
       }
-    );
-    if (response) {
-      navigate("/");
+    } catch (error) {
+      console.log("Error deleting note", error);
     }
   };
 
@@ -65,7 +74,6 @@ const Editor = () => {
             sx={{ marginLeft: "68vw" }}
             onClick={() => {
               saveNote();
-              navigate("/");
             }}
           >
             <ArrowBackIcon />
